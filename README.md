@@ -27,3 +27,10 @@ bal build
 ```
 bal run target/bin/hello_world.jar
 ```
+
+## Guide
+### 1. Ballerina learn by examples
+Follow [this documentation](https://ballerina.io/learn/by-example/) to learn the prmitive constructs of the language.
+
+### 2. Building a data service in Ballerina
+Follow [this documentation](https://ballerina.io/learn/build-a-data-service-in-ballerina/) to learn about how MySQL database can be used to create a service layer.
