@@ -9,3 +9,10 @@ http://localhost:8080/users/dhanushka/asela/deneth
 
 /* Request params */
 http://localhost:8080/details?first_name=dhanushka&age=23
+
+/* Payloads */
+http://localhost:8080/setStudent
+{
+  "name": "Dhanushka",
+  "age": 22
+}

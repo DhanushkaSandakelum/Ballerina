@@ -1,5 +1,10 @@
 import ballerina/http;
 
+type Student record {
+    string name;
+    int age;
+};
+
 service / on new http:Listener(8080) {
     // @title - GET REQUESTS
     // @desc - GET request standard path - localhost:8000/test
@@ -35,9 +40,15 @@ service / on new http:Listener(8080) {
         return "Hello, " + usernameList;
     }
 
-    // @title - Request parameters
+    // @title - REQUEST PARAMETERS
     // @desc - Multiple request params
     resource function get details (string first_name, int age) returns string {
         return "Hello, " + first_name + " and you are " + age.toString() + " years old.";
+    }
+
+    // @title - PAYLOAD REQUESTS
+    // @desc - post payload
+    resource function post setStudent (@http:Payload Student student) returns string {
+        return student.name + student.age.toString();        
     }
 }
