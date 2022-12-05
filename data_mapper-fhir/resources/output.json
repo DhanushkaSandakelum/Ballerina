@@ -1,0 +1,10 @@
+{
+    "name": "HACC Funded Billing for Peter James Chalmers",
+    "subject": [
+        {"display": "Peter James Chalmers"}
+    ],
+    "servicePeriod": {
+        "start": "2016-01-01",
+        "end": "2016-06-30"
+      }
+}
