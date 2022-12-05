@@ -1,0 +1,11 @@
+{
+    "id": 1001,
+    "fullName": "Vinnie Hickman",
+    "age": "15",
+    "courses": [
+        {"title": "CS6002 - Computation Structures", "credits": 4},
+        {"title": "CS6003 - Circuits and Electronics", "credits": 3},
+        {"title": "CS6004 - Signals and Systems", "credits": 3}
+    ],
+    "totalCredits": 10
+}

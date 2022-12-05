@@ -1,0 +1,29 @@
+// Create user
+POST http://localhost:9000/api/student
+content-type: application/json
+
+{
+    "person": {
+        "id": 1001,
+        "firstName": "Vinnie",
+        "lastName": "Hickman",
+        "age": 15
+    },
+    "course": [
+        {
+            "id": "CS6002",
+            "name": "Computation Structures",
+            "credits": 4
+        },
+        {
+            "id": "CS6003",
+            "name": "Circuits and Electronics",
+            "credits": 3
+        },
+        {
+            "id": "CS6004",
+            "name": "Signals and Systems",
+            "credits": 3
+        }
+    ]
+}
