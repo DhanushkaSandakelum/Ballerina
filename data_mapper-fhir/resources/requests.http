@@ -1,5 +1,5 @@
 # Patient test
-POST http://localhost:9000/api/fhir/patient
+POST http://localhost:9090/api/fhir/patient
 Content-Type: application/json
 
 {

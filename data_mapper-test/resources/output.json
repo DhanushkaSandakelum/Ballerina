@@ -1,0 +1,9 @@
+{
+    "id": 1001,
+    "fullName": "Vinnie Hickman",
+    "age": "15",
+    "treatments": [
+        {"desc": "Treatment 1"},
+        {"desc": "Treatment 2"}
+    ]
+}

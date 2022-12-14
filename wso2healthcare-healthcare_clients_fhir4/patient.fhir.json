@@ -1,0 +1,25 @@
+{
+  "resourceType": "Patient",
+  "name": [
+    {
+      "use": "official",
+      "given": ["Dhanushka"],
+      "family": "Sandakelum"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1999-11-12",
+  "telecom": [
+    { "system": "phone", "value": "0775642956", "use": "mobile" },
+    { "system": "email", "value": "dhanushka@gmail.com" }
+  ],
+  "address": [
+    {
+      "line": ["131/C School Road"],
+      "city": "Kahatapitiya",
+      "state": "Hanwella",
+      "country": "Sri Lanka",
+      "postalCode": "10650"
+    }
+  ]
+}

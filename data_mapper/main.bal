@@ -23,9 +23,6 @@ type StudentDetails record {
     int totalCredits;
 };
 
-type Record record {
-};
-
 function transform(PersonDetails personDetails) returns StudentDetails => {
     id: personDetails.person.id,
     age: personDetails.person.age.toBalString(),

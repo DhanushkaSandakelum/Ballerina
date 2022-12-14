@@ -1,0 +1,19 @@
+{
+    "patient": {
+        "id": 1001,
+        "firstName": "John",
+        "secondName": "Doe",
+        "address": "131/C, Reid Avenue, Colombo",
+        "age": 23
+    },
+    "treatments": [
+        {
+            "id": "T001",
+            "description": "Treatment 1"
+        },
+        {
+            "id": "T002",
+            "name": "Treatment 2"
+        }
+    ]
+}
