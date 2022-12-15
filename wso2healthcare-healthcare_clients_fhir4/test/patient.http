@@ -1,8 +1,8 @@
 ### Get patient resource by id
-GET http://localhost:8080/api/v1/Patient/7199497
+GET http://localhost:8080/api/v1/Patient/7199937
 
 ### Post patient resource
-POST http://localhost:8080/api/v1/Patient
+POST http://localhost:8080/api/v1
 Content-Type: application/json
 
 {
@@ -32,12 +32,12 @@ Content-Type: application/json
 }
 
 ### Patch patient resource
-PATCH  http://localhost:8080/api/v1/Patient
+PATCH  http://localhost:8080/api/v1
 Content-Type: application/json
 
 {
   "resourceType": "Patient",
-  "id": "7199451",
+  "id": "7199937",
   "name": [
     {
       "use": "official",
@@ -63,4 +63,4 @@ Content-Type: application/json
 }
 
 ### Delete patient resource by id
-DELETE  http://localhost:8080/api/v1/Patient/7199494
+DELETE  http://localhost:8080/api/v1/Patient/7199497

@@ -3,11 +3,10 @@ import wso2healthcare/healthcare.clients.fhirr4;
 import ballerina/io;
 import ballerina/http;
 
-fhirr4:FhirConnectorConfig connectorConfig = {baseURL: "http://hapi.fhir.org/baseR4", mimeType: "application/fhir+json"};
+fhirr4:FHIRConnectorConfig connectorConfig = {baseURL: "http://hapi.fhir.org/baseR4", mimeType: "application/fhir+json"};
 http:ClientConfiguration httpClientConfig = {httpVersion: "2.0"};
-string patientFilePath = "./src/fhirResources/response/patient.res.fhir.json";
 
-final fhirr4:FhirConnector fhirConnector = check new fhirr4:FhirConnector(connectorConfig, httpClientConfig);
+final fhirr4:FHIRConnector fhirConnector = check new fhirr4:FHIRConnector(connectorConfig, httpClientConfig);
 
 // FHIR Resources
 public type Patient record {|
@@ -37,9 +36,9 @@ isolated function saveJson(string path, json data) returns io:Error? {
 
 // For GET FHIR Resources
 isolated function fhirGetById(fhirr4:ResourceType|string resourceType, string id, fhirr4:MimeType? returnMimeType = null, fhirr4:SummaryType? summary = null) returns json {
-    fhirr4:FhirResponse|fhirr4:FhirError fhirResponse = fhirConnector->getById(resourceType, id, returnMimeType, summary);
+    fhirr4:FHIRResponse|fhirr4:FHIRError fhirResponse = fhirConnector->getById(resourceType, id, returnMimeType, summary);
 
-    if fhirResponse is fhirr4:FhirError {
+    if fhirResponse is fhirr4:FHIRError {
         return sendStandardResponse(404, "Something went wrong on requesting FHIR resource");
     }
 
@@ -47,7 +46,7 @@ isolated function fhirGetById(fhirr4:ResourceType|string resourceType, string id
     json fhirResource = fhirResponse.'resource.toJson();
 
     // 2. Save the resource as a JSON object
-    io:Error? res = saveJson(patientFilePath, fhirResponse.'resource.toJson());
+    io:Error? res = saveJson("./src/fhirResources/response/patient.res.fhir.json", fhirResponse.'resource.toJson());
 
     if res is io:Error {
         return sendStandardResponse(404, "Something went wrong on writing the file");
@@ -58,25 +57,61 @@ isolated function fhirGetById(fhirr4:ResourceType|string resourceType, string id
 }
 
 // TODO: For POST FHIR Resources
-isolated function fhirCreate(json|xml data, fhirr4:MimeType? returnMimeType = null, fhirr4:PreferenceType returnPreference = fhirr4:MINIMAL) returns fhirr4:FhirResponse|fhirr4:FhirError {
-    return fhirConnector->create(data, returnMimeType, returnPreference);
+isolated function fhirCreate(json|xml data, fhirr4:MimeType? returnMimeType = null, fhirr4:PreferenceType returnPreference = fhirr4:MINIMAL) returns json {
+    fhirr4:FHIRResponse|fhirr4:FHIRError fhirResponse =  fhirConnector->create(data, returnMimeType, returnPreference);
+
+    if fhirResponse is fhirr4:FHIRError {
+        return sendStandardResponse(404, "Something went wrong on requesting FHIR resource");
+    }
+
+    // 1. Obtain FHIR resource from the response
+    json fhirResource = fhirResponse.'resource.toJson();
+
+    // 2. Save the resource as a JSON object
+    io:Error? res = saveJson("./src/fhirResources/response/patient.res.fhir.json", fhirResponse.'resource.toJson());
+
+    if res is io:Error {
+        return sendStandardResponse(404, "Something went wrong on writing the file");
+    }
+
+    // return fhirResponse;
+    return sendStandardResponse(fhirResponse.httpStatusCode, "Resource created", fhirResource);
 }
 
 // TODO: For PUT FHIR Resources
-isolated function fhirUpdate(json|xml data, fhirr4:MimeType? returnMimeType = null, fhirr4:PreferenceType returnPreference = fhirr4:MINIMAL) returns fhirr4:FhirResponse|fhirr4:FhirError {
-    return fhirConnector->update(data, returnMimeType, returnPreference);
+isolated function fhirUpdate(json|xml data, fhirr4:MimeType? returnMimeType = null, fhirr4:PreferenceType returnPreference = fhirr4:MINIMAL) returns json {
+    fhirr4:FHIRResponse|fhirr4:FHIRError fhirResponse =  fhirConnector->update(data, returnMimeType, returnPreference);
+
+io:println(fhirResponse);
+
+    if fhirResponse is fhirr4:FHIRError {
+        return sendStandardResponse(404, "Something went wrong on requesting FHIR resource");
+    }
+
+     // 1. Obtain FHIR resource from the response
+    json fhirResource = fhirResponse.'resource.toJson();
+
+    // 2. Save the resource as a JSON object
+    io:Error? res = saveJson("./src/fhirResources/response/patient.res.fhir.json", fhirResponse.'resource.toJson());
+
+    if res is io:Error {
+        return sendStandardResponse(404, "Something went wrong on writing the file");
+    }
+
+    // return fhirResponse;
+    return sendStandardResponse(fhirResponse.httpStatusCode, "Resource updated", fhirResource);
 }
 
 // For DELETE FHIR Resources
 isolated function fhirDelete(fhirr4:ResourceType|string resourceType, string id) returns json {
-    fhirr4:FhirResponse|fhirr4:FhirError fhirResponse = fhirConnector->delete(resourceType, id);
+    fhirr4:FHIRResponse|fhirr4:FHIRError fhirResponse = fhirConnector->delete(resourceType, id);
 
-    if fhirResponse is fhirr4:FhirError {
+    if fhirResponse is fhirr4:FHIRError {
         return sendStandardResponse(404, "Something went wrong on requesting FHIR resource");
     }
 
     // 2. Save the resource as a JSON object
-    io:Error? res = saveJson(patientFilePath, null);
+    io:Error? res = saveJson("./src/fhirResources/response/patient.res.fhir.json", null);
 
     if res is io:Error {
         return sendStandardResponse(404, "Something went wrong on writing the file");
@@ -88,4 +123,6 @@ isolated function fhirDelete(fhirr4:ResourceType|string resourceType, string id)
 
 public function main() {
     io:println("Server running successfully on port 8080");
+
+    
 }
