@@ -58,7 +58,7 @@ isolated function fhirGetById(fhirr4:ResourceType|string resourceType, string id
 
 // TODO: For POST FHIR Resources
 isolated function fhirCreate(json|xml data, fhirr4:MimeType? returnMimeType = null, fhirr4:PreferenceType returnPreference = fhirr4:MINIMAL) returns json {
-    fhirr4:FHIRResponse|fhirr4:FHIRError fhirResponse =  fhirConnector->create(data, returnMimeType, returnPreference);
+    fhirr4:FHIRResponse|fhirr4:FHIRError fhirResponse = fhirConnector->create(data, returnMimeType, returnPreference);
 
     if fhirResponse is fhirr4:FHIRError {
         return sendStandardResponse(404, "Something went wrong on requesting FHIR resource");
@@ -80,15 +80,15 @@ isolated function fhirCreate(json|xml data, fhirr4:MimeType? returnMimeType = nu
 
 // TODO: For PUT FHIR Resources
 isolated function fhirUpdate(json|xml data, fhirr4:MimeType? returnMimeType = null, fhirr4:PreferenceType returnPreference = fhirr4:MINIMAL) returns json {
-    fhirr4:FHIRResponse|fhirr4:FHIRError fhirResponse =  fhirConnector->update(data, returnMimeType, returnPreference);
+    fhirr4:FHIRResponse|fhirr4:FHIRError fhirResponse = fhirConnector->update(data, returnMimeType, returnPreference);
 
-io:println(fhirResponse);
+    io:println(fhirResponse);
 
     if fhirResponse is fhirr4:FHIRError {
         return sendStandardResponse(404, "Something went wrong on requesting FHIR resource");
     }
 
-     // 1. Obtain FHIR resource from the response
+    // 1. Obtain FHIR resource from the response
     json fhirResource = fhirResponse.'resource.toJson();
 
     // 2. Save the resource as a JSON object
@@ -123,6 +123,4 @@ isolated function fhirDelete(fhirr4:ResourceType|string resourceType, string id)
 
 public function main() {
     io:println("Server running successfully on port 8080");
-
-    
 }

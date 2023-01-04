@@ -1,0 +1,11 @@
+[package]
+org = "wso2healthcare"
+name = "wso2healthcare_healthcare_fhir_r4_api_patient"
+version = "0.1.1"
+export = ["wso2healthcare_healthcare_fhir_r4_api_patient"]
+distribution = "2201.1.2"
+authors = ["WSO2 Healthcare"]
+keywords = ["Healthcare","FHIR","Patient","r4","international"]
+
+[build-options]
+observabilityIncluded = true
