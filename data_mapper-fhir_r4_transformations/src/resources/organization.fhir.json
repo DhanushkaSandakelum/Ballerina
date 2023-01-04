@@ -1,0 +1,23 @@
+{
+    "resourceType" : "Organization",
+    "id" : "hl7",
+    "name" : "Health Level Seven International",
+    "alias" : ["HL7 International"],
+    "contact" : [{     
+      "telecom" : [{
+        "system" : "phone",
+        "value" : "(+1) 734-677-7777"
+      },
+      {
+        "system" : "fax",
+        "value" : "(+1) 734-677-6622"
+      },
+      {
+        "system" : "email",
+        "value" : "hq@HL7.org"
+      }]
+    }],
+    "endpoint" : [{
+      "reference" : "Endpoint/example"
+    }]
+  }

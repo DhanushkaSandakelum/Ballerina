@@ -77,9 +77,6 @@ dependencies = [
 	{org = "ballerina", name = "time"},
 	{org = "ballerina", name = "url"}
 ]
-modules = [
-	{org = "ballerina", packageName = "http", moduleName = "http"}
-]
 
 [[package]]
 org = "ballerina"
@@ -288,10 +285,8 @@ org = "wso2"
 name = "data_mapper_fhir_r4_transformations"
 version = "0.1.0"
 dependencies = [
-	{org = "ballerina", name = "http"},
 	{org = "ballerina", name = "io"},
 	{org = "ballerinai", name = "observe"},
-	{org = "wso2healthcare", name = "healthcare.clients.fhirr4"},
 	{org = "wso2healthcare", name = "healthcare.fhir.r4"}
 ]
 modules = [
@@ -305,20 +300,6 @@ version = "0.1.1"
 dependencies = [
 	{org = "ballerina", name = "io"},
 	{org = "ballerina", name = "log"}
-]
-
-[[package]]
-org = "wso2healthcare"
-name = "healthcare.clients.fhirr4"
-version = "0.1.1"
-dependencies = [
-	{org = "ballerina", name = "http"},
-	{org = "ballerina", name = "log"},
-	{org = "ballerina", name = "regex"},
-	{org = "ballerinai", name = "observe"}
-]
-modules = [
-	{org = "wso2healthcare", packageName = "healthcare.clients.fhirr4", moduleName = "healthcare.clients.fhirr4"}
 ]
 
 [[package]]

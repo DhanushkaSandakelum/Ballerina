@@ -1,2 +1,0 @@
-### Get patient resource by id
-GET http://localhost:8080/api/patient/7199937
