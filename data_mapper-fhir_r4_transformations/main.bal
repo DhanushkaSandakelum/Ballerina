@@ -6,4 +6,7 @@ public function main() {
 
     io:println("Organization Test");
     testOrganizationTransformation();
+
+     io:println("Practitioner Test");
+    testPractitionerTransformation();
 }

@@ -1,4 +1,3 @@
-
 import ballerina/io;
 import wso2healthcare/healthcare.fhir.r4;
 
