@@ -7,6 +7,12 @@ public function main() {
     io:println("Organization Test");
     testOrganizationTransformation();
 
-     io:println("Practitioner Test");
+    io:println("Practitioner Test");
     testPractitionerTransformation();
+
+    io:println("Encounter Test");
+    testEncounterTransformation();
+    
+    io:println("Observation Test");
+    testObservationTransformation();
 }

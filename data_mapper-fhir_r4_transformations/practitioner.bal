@@ -12,7 +12,7 @@ r4:Practitioner healthcarePractitionerExample = {
     language: "en-US"
 };
 
-type customPractitioner record {
+public type customPractitioner record {
     string resourceType;
     string? id;
     record {
@@ -65,8 +65,8 @@ public function practitionerTransformStandardToCustom(r4:Practitioner healthcare
                 postalCode: addressItem.postalCode
             } : ([]),
     text: {
-        status: healthcarePractitioner.text.status,
-        div: healthcarePractitioner.text.div
+        status: let r4:Narrative? narrative = healthcarePractitioner.text in narrative is r4:Narrative ? narrative.status : (""),
+        div: let r4:Narrative? narrative = healthcarePractitioner.text in narrative is r4:Narrative ? narrative.div : ("")
     }
 };
 

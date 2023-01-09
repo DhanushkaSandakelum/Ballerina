@@ -36,15 +36,15 @@ function organizationTransformStandardToCustom(r4:Organization healthcareOrganiz
                 reference: endpointItem.reference
             } : ([]),
     contact: let r4:OrganizationContact[]? healthcareOrganizationContact = healthcareOrganization.contact
-        in healthcareOrganizationContact is r4:OrganizationContact[] ? from var contactItem in healthcareOrganizationContact
-            select {
-                telecom: let r4:ContactPoint[]? healthcareContactPoint = contactItem.telecom
-                    in healthcareContactPoint is r4:ContactPoint[] ? from var contactPointItem in healthcareContactPoint
-                        select {
-                            system: contactPointItem.system,
-                            value: contactPointItem.value
-                        } : ([])
-            } : ([]),
+                     in healthcareOrganizationContact is r4:OrganizationContact[] ? from var contactItem in healthcareOrganizationContact
+                         select {
+                             telecom: let r4:ContactPoint[]? healthcareContactPoint = contactItem.telecom
+                                 in healthcareContactPoint is r4:ContactPoint[] ? from var contactPointItem in healthcareContactPoint
+                                     select {
+                                         system: contactPointItem.system,
+                                         value: contactPointItem.value
+                                     } : ([])
+                         } : ([]),
     alias: healthcareOrganization.alias,
     name: healthcareOrganization.name,
 
