@@ -1,0 +1,8 @@
+[package]
+org = "wso2"
+name = "data_mapper_hl7v23_fhir_mapping"
+version = "0.1.0"
+distribution = "2201.2.3"
+
+[build-options]
+observabilityIncluded = true
