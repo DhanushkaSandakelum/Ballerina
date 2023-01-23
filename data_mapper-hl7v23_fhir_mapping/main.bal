@@ -1,30 +1,34 @@
 import ballerina/io;
-// import ballerina/log;
 import wso2healthcare/healthcare.hl7v23;
-
+import ballerina/log;
+import wso2healthcare/healthcare.hl7;
 import wso2healthcare/healthcare.fhir.r4;
 
-//hl7v2tofhirmapper package
+//hl7v2tofhir package
 
-function ADT_A01ToPatient(hl7v23:ADT_A01 adtA01) returns r4:Patient => {
-    name: GetHL7_PID_PatientName(adtA01.pid.pid5, adtA01.pid.pid9),
-    birthDate: adtA01.pid.pid7.ts1,
-    gender: GetHL7_PID_AdministrativeSex(adtA01.pid.pid8),
-    address: GetHL7_PID_Address(adtA01.pid.pid12, adtA01.pid.pid11),    
-    telecom: GetHL7_PID_PhoneNumber(adtA01.pid.pid13, adtA01.pid.pid14),
-    communication: GetHL7_PID_PrimaryLanguage(adtA01.pid.pid15),
-    maritalStatus: {
-        coding: GetHL7_PID_MaritalStatus(adtA01.pid.pid16)
-    },
-    // extension: GetHL7_PID_Religion(adtA01.pid.pid17)
-    identifier: GetHL7_PID_SSNNumberPatient(adtA01.pid.pid19),
-    extension: GetHL7_PID_BirthPlace(adtA01.pid.pid23),
-    multipleBirthBoolean: GetHL7_PID_MultipleBirthIndicator(adtA01.pid.pid24),
-    multipleBirthInteger: GetHL7_PID_BirthOrder(adtA01.pid.pid25),
-    deceasedBoolean: GetHL7_PID_PatientDeathIndicator(adtA01.pid.pid30)
-};
+public function parseV2QueryMessageToFHIR(string queryMessageStr) returns hl7:HL7Error? {
+    byte[] queryMessage = hl7:createHL7WirePayload(queryMessageStr.toBytes());
 
-public function main() {
-    io:println("Concept map -> Segment PID to Patient Map");
+    hl7:HL7Parser parser = new ();
+    hl7:Message|hl7:GenericMessage parsedMsg = check parser.parse(queryMessage);
+
+    if parsedMsg is hl7v23:ADT_A01 {
+        // log:printInfo(parsedMsg.toBalString());
+
+        // Applying the v2 to fhir transformation
+        r4:Patient patient = ADT_A01ToPatient(parsedMsg);
+
+        log:printInfo(patient.toBalString());
+    }
+}
+
+public function main() returns error? {
+    string queryMessageStr = "MSH|^~\\&|SendingApp|SendingFacility|HL7API|PKB|20160102101112||ADT^A01|ABC0000000001|P|2.3\r" +
+"PID|||9999999999^^^NHS^NH||Smith^John^Joe^^Mr||19700101|M|||Flat name^1, The Road^London^London^SW1A 1AA^GBR||01234567890^PRN~07123456789^PRS|^NET^john.smith@company.com~01234098765^WPN||||||||||||||||N|\r" +
+"PV1|1|I|^^^^^^^^My Ward||||^Jones^Stuart^James^^Dr^|^Smith^William^^^Dr^|^Foster^Terry^^^Mr^||||||||||V00001|||||||||||||||||||||||||201508011000|201508011200";
+
+    io:println("Concept map -> Bundle ADT_A01 to Patient Map");
+
+    return parseV2QueryMessageToFHIR(queryMessageStr);
 }
 
