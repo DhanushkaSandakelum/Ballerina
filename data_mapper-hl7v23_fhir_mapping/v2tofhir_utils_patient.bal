@@ -34,15 +34,16 @@ public function GetHL7_PID_PatientName(hl7v23:XPN[] pid5, hl7v23:XPN[] pid9) ret
     r4:HumanName[] humanNames = [];
 
     foreach hl7v23:XPN item in pid5 {
+
         humanNames.push({
             // id: 
             // extension:
-            // use:
+            use: HL7v2ToFHIRr4Helper_GetHumanNameUse(item.xpn7),
             // text:
             family: item.xpn1,
-            given: [item.xpn2],
+            given: [item.xpn2, item.xpn3],
             prefix: [item.xpn5],
-            suffix: [item.xpn4]
+            suffix: [item.xpn4, item.xpn6]
             // period:
         });
     }
@@ -51,12 +52,12 @@ public function GetHL7_PID_PatientName(hl7v23:XPN[] pid5, hl7v23:XPN[] pid9) ret
         humanNames.push({
             // id: 
             // extension:
-            // use:
+            use: HL7v2ToFHIRr4Helper_GetHumanNameUse(item.xpn7),
             // text:
             family: item.xpn1,
-            given: [item.xpn2],
+            given: [item.xpn2, item.xpn3],
             prefix: [item.xpn5],
-            suffix: [item.xpn4]
+            suffix: [item.xpn4, item.xpn6]
             // period:
         });
     }
@@ -75,16 +76,16 @@ public function GetHL7_PID_Address(string pid12, hl7v23:XAD[] pid11) returns r4:
     foreach hl7v23:XAD item in pid11 {
         address.push({
             // id: 
-            // extension:
-            // use:
-            // 'type:
+            // extension: [item.xad10],
+            use: CheckComputableANTLR(item.xad7, ["BA", "BI", "C", "B", "H", "O"]) ? HL7v2ToFHIRr4Helper_GetAddressUse(item.xad7) : (),
+            'type: CheckComputableANTLR(item.xad7, ["M", "SH"]) ?HL7v2ToFHIRr4Helper_GetAddressType(item.xad7): (),
             // text:
-            // line:
-            city:item.xad3,
-            // district: 
-            state:item.xad4,
-            postalCode:item.xad5,
-            country:item.xad6
+            line: [item.xad1, item.xad2],
+            city: item.xad3,
+            district: item.xad9,
+            state: item.xad4,
+            postalCode: item.xad5,
+            country: item.xad6
             // period:
         });
     }
@@ -100,6 +101,7 @@ public function GetHL7_PID_Address(string pid12, hl7v23:XAD[] pid11) returns r4:
 public function GetHL7_PID_PhoneNumber(hl7v23:XTN[] pid13, hl7v23:XTN[] pid14) returns r4:ContactPoint[] {
     r4:ContactPoint[] phoneNumbers = [];
 
+    //get ContactPointFromXTN use this
     foreach hl7v23:XTN item in pid13 {
         phoneNumbers.push({
             // id: 
@@ -131,17 +133,19 @@ public function GetHL7_PID_PhoneNumber(hl7v23:XTN[] pid13, hl7v23:XTN[] pid14) r
 #
 # + pid15 - Primary Language (in hl7:PID)
 # + return - communication (in r4:Patient)
-public function GetHL7_PID_PrimaryLanguage(hl7v23:CE pid15) returns r4:CommunicationBackboneElement[]{
+public function GetHL7_PID_PrimaryLanguage(hl7v23:CE pid15) returns r4:CommunicationBackboneElement[] {
     r4:CodeableConcept language = {
         id: pid15.ce1,
         // extension:
         // coding: 
         text: pid15.ce2
     };
-    
-    r4:CommunicationBackboneElement[] languages = [{
-        language: language
-    }];
+
+    r4:CommunicationBackboneElement[] languages = [
+        {
+            language: language
+        }
+    ];
 
     return languages;
 }

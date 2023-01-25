@@ -1,26 +1,8 @@
 import ballerina/io;
-import wso2healthcare/healthcare.hl7v23;
-import ballerina/log;
-import wso2healthcare/healthcare.hl7;
-import wso2healthcare/healthcare.fhir.r4;
 
 //hl7v2tofhir package
 
-public function parseV2QueryMessageToFHIR(string queryMessageStr) returns hl7:HL7Error? {
-    byte[] queryMessage = hl7:createHL7WirePayload(queryMessageStr.toBytes());
 
-    hl7:HL7Parser parser = new ();
-    hl7:Message|hl7:GenericMessage parsedMsg = check parser.parse(queryMessage);
-
-    if parsedMsg is hl7v23:ADT_A01 {
-        // log:printInfo(parsedMsg.toBalString());
-
-        // Applying the v2 to fhir transformation
-        r4:Patient patient = ADT_A01ToPatient(parsedMsg);
-
-        log:printInfo(patient.toBalString());
-    }
-}
 
 public function main() returns error? {
     string queryMessageStr = "MSH|^~\\&|SendingApp|SendingFacility|HL7API|PKB|20160102101112||ADT^A01|ABC0000000001|P|2.3\r" +
@@ -29,6 +11,10 @@ public function main() returns error? {
 
     io:println("Concept map -> Bundle ADT_A01 to Patient Map");
 
-    return parseV2QueryMessageToFHIR(queryMessageStr);
+    return V2ToFHIRParser(queryMessageStr);
+
+    // boolean test = CheckComputableANTLR("aa", ["a", "b"]);
+
+    // io:println(test);
 }
 
