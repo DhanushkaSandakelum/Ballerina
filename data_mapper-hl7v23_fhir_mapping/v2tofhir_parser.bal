@@ -14,7 +14,7 @@ public function V2ToFHIRParser(string queryMessageStr) returns hl7:HL7Error? {
 
     // Based on the message type, transformation applied
     if parsedMsg is hl7v23:ADT_A01 {
-        // Applying the v2 to fhir transformation 
+        // 1). Applying the v2 to fhir transformation for ADT_A01 Message
         r4:Patient patient = ADT_A01ToPatient(parsedMsg);
 
         log:printInfo(patient.toBalString());

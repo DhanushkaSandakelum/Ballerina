@@ -77,8 +77,8 @@ public function GetHL7_PID_Address(string pid12, hl7v23:XAD[] pid11) returns r4:
         address.push({
             // id: 
             // extension: [item.xad10],
-            use: CheckComputableANTLR(item.xad7, ["BA", "BI", "C", "B", "H", "O"]) ? HL7v2ToFHIRr4Helper_GetAddressUse(item.xad7) : (),
-            'type: CheckComputableANTLR(item.xad7, ["M", "SH"]) ?HL7v2ToFHIRr4Helper_GetAddressType(item.xad7): (),
+            use: CheckComputableANTLR([{identifier: item.xad7, comparisonOperator: "IN", valueList: ["BA", "BI", "C", "B", "H", "O"]}]) ? HL7v2ToFHIRr4Helper_GetAddressUse(item.xad7) : (),
+            'type: CheckComputableANTLR([{identifier: item.xad7, comparisonOperator: "IN", valueList: ["M", "SH"]}]) ? HL7v2ToFHIRr4Helper_GetAddressType(item.xad7) : (),
             // text:
             line: [item.xad1, item.xad2],
             city: item.xad3,
@@ -106,9 +106,9 @@ public function GetHL7_PID_PhoneNumber(hl7v23:XTN[] pid13, hl7v23:XTN[] pid14) r
         phoneNumbers.push({
             // id: 
             // extension:
-            // system:
-            value: item.xtn1 + item.xtn7.toString()
-            // use:
+            system: HL7v2ToFHIRr4Helper_GetContactPointSystem(item.xtn3),
+            value: item.xtn1 + item.xtn4,
+            use: HL7v2ToFHIRr4Helper_GetContactPointUse(item.xtn2)
             // rank:
             // period:
         });
@@ -118,9 +118,9 @@ public function GetHL7_PID_PhoneNumber(hl7v23:XTN[] pid13, hl7v23:XTN[] pid14) r
         phoneNumbers.push({
             // id: 
             // extension:
-            // system:
-            value: item.xtn7.toString()
-            // use:
+            system: HL7v2ToFHIRr4Helper_GetContactPointSystem(item.xtn3),
+            value: item.xtn1 + item.xtn4,
+            use: HL7v2ToFHIRr4Helper_GetContactPointUse(item.xtn2)
             // rank:
             // period:
         });

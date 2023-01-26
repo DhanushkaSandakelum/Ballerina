@@ -274,6 +274,18 @@ dependencies = [
 
 [[package]]
 org = "ballerina"
+name = "test"
+version = "0.0.0"
+scope = "testOnly"
+dependencies = [
+	{org = "ballerina", name = "jballerina.java"}
+]
+modules = [
+	{org = "ballerina", packageName = "test", moduleName = "test"}
+]
+
+[[package]]
+org = "ballerina"
 name = "time"
 version = "2.2.3"
 dependencies = [
@@ -319,6 +331,7 @@ version = "0.1.0"
 dependencies = [
 	{org = "ballerina", name = "io"},
 	{org = "ballerina", name = "log"},
+	{org = "ballerina", name = "test"},
 	{org = "ballerinai", name = "observe"},
 	{org = "wso2healthcare", name = "healthcare.fhir.r4"},
 	{org = "wso2healthcare", name = "healthcare.hl7"},
