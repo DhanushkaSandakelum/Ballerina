@@ -107,7 +107,12 @@ public function GetHL7_PID_PhoneNumber(hl7v23:XTN[] pid13, hl7v23:XTN[] pid14) r
             // id: 
             // extension:
             system: HL7v2ToFHIRr4Helper_GetContactPointSystem(item.xtn3),
-            value: item.xtn1 + item.xtn4,
+            value: CheckComputableANTLR([
+                    {identifier: item.xtn3, comparisonOperator: "NIN", valueList: ["Internet", "X.400"]},
+                    {identifier: item.xtn7.toString(), comparisonOperator: "IN", valueList: []}
+                                        //, {identifier: item.xtn12, comparisonOperator: "IN", valueList: []}                    //TODO: xtn12 is not defined yet
+                ]) ? item.xtn1 :
+                    (CheckComputableANTLR([{identifier: item.xtn3, comparisonOperator: "NIN", valueList: ["Internet", "X.400"]}])) ? (item.xtn4) : (),
             use: HL7v2ToFHIRr4Helper_GetContactPointUse(item.xtn2)
             // rank:
             // period:

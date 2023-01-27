@@ -1,16 +1,3 @@
-
-
-// Basic ANTLR checker
-public function CheckTestComputableANTLR(string x, string[] values) returns boolean {
-    foreach string item in values {
-        if item == x {
-            return true;
-        }
-    }
-
-    return false;
-}
-
 // Enums
 public enum ComparisonOperator {
     EQ,     // Matches values that are equal to a specified value.
@@ -33,7 +20,7 @@ public enum LogicalOperator {
 # Standard ANTLR Record Definition
 #
 # + identifier - HL7 v2 Identifier(ID)
-# + s - [EQ, GT, GTE, IN, LT, LTE, NE, NIN] - Comparison logic
+# + comparisonOperator - [EQ, GT, GTE, IN, LT, LTE, NE, NIN] - Comparison logic
 # + valueList - Values to be applied with the logic to compare identifier
 public type ANTLR record {|
     string identifier;
@@ -42,7 +29,7 @@ public type ANTLR record {|
 |};
 
 
-# Test Computable ANTLR checker
+# Computable ANTLR checker
 # 
 # Parameter list: (identifier, comparisonOperator, value list)
 # + antlrList - ANTLR expressions list
