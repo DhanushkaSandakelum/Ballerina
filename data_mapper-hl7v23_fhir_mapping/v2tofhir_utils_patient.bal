@@ -5,7 +5,7 @@ import wso2healthcare/healthcare.hl7v23;
 #
 # + pid8 - Sex (in hl7:PID)
 # + return - gender (in r4:Patient)
-public function GetHL7_PID_AdministrativeSex(string pid8) returns r4:AdministrativeGender {
+public function GetHL7_PID_AdministrativeSex(string pid8) returns r4:PatientGender {
     match pid8 {
         "F" => {
             return "male";
@@ -138,7 +138,7 @@ public function GetHL7_PID_PhoneNumber(hl7v23:XTN[] pid13, hl7v23:XTN[] pid14) r
 #
 # + pid15 - Primary Language (in hl7:PID)
 # + return - communication (in r4:Patient)
-public function GetHL7_PID_PrimaryLanguage(hl7v23:CE pid15) returns r4:CommunicationBackboneElement[] {
+public function GetHL7_PID_PrimaryLanguage(hl7v23:CE pid15) returns r4:PatientCommunication[] {
     r4:CodeableConcept language = {
         id: pid15.ce1,
         // extension:
@@ -146,7 +146,7 @@ public function GetHL7_PID_PrimaryLanguage(hl7v23:CE pid15) returns r4:Communica
         text: pid15.ce2
     };
 
-    r4:CommunicationBackboneElement[] languages = [
+    r4:PatientCommunication[] languages = [
         {
             language: language
         }
