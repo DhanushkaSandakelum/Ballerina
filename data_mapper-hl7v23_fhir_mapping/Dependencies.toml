@@ -335,7 +335,8 @@ dependencies = [
 	{org = "ballerinai", name = "observe"},
 	{org = "wso2healthcare", name = "healthcare.fhir.r4"},
 	{org = "wso2healthcare", name = "healthcare.hl7"},
-	{org = "wso2healthcare", name = "healthcare.hl7v23"}
+	{org = "wso2healthcare", name = "healthcare.hl7v23"},
+	{org = "wso2healthcare", name = "healthcare.hl7v24"}
 ]
 modules = [
 	{org = "wso2", packageName = "data_mapper_hl7v23_fhir_mapping", moduleName = "data_mapper_hl7v23_fhir_mapping"}
@@ -402,6 +403,19 @@ dependencies = [
 ]
 modules = [
 	{org = "wso2healthcare", packageName = "healthcare.hl7v23", moduleName = "healthcare.hl7v23"}
+]
+
+[[package]]
+org = "wso2healthcare"
+name = "healthcare.hl7v24"
+version = "0.1.9"
+dependencies = [
+	{org = "ballerina", name = "log"},
+	{org = "ballerina", name = "regex"},
+	{org = "wso2healthcare", name = "healthcare.hl7"}
+]
+modules = [
+	{org = "wso2healthcare", packageName = "healthcare.hl7v24", moduleName = "healthcare.hl7v24"}
 ]
 
 

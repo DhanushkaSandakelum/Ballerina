@@ -5,7 +5,7 @@ import wso2healthcare/healthcare.hl7v23;
 #
 # + pid8 - Sex (in hl7:PID)
 # + return - gender (in r4:Patient)
-public function GetHL7_PID_AdministrativeSex(string pid8) returns r4:PatientGender {
+public function GetHL7v23_PID_AdministrativeSex(string pid8) returns r4:PatientGender {
     match pid8 {
         "F" => {
             return "male";
@@ -30,7 +30,7 @@ public function GetHL7_PID_AdministrativeSex(string pid8) returns r4:PatientGend
 # + pid5 - Patient Name (in hl7:PID)
 # + pid9 - Patient Alias (in hl7:PID)
 # + return - name (in r4:Patient)
-public function GetHL7_PID_PatientName(hl7v23:XPN[] pid5, hl7v23:XPN[] pid9) returns r4:HumanName[] {
+public function GetHL7v23_PID_PatientName(hl7v23:XPN[] pid5, hl7v23:XPN[] pid9) returns r4:HumanName[] {
     r4:HumanName[] humanNames = [];
 
     foreach hl7v23:XPN item in pid5 {
@@ -70,7 +70,7 @@ public function GetHL7_PID_PatientName(hl7v23:XPN[] pid5, hl7v23:XPN[] pid9) ret
 # + pid12 - County Code (in hl7:PID)
 # + pid11 - Patient address (in hl7:PID)
 # + return - address (in r4:Patient)
-public function GetHL7_PID_Address(string pid12, hl7v23:XAD[] pid11) returns r4:Address[] {
+public function GetHL7v23_PID_Address(string pid12, hl7v23:XAD[] pid11) returns r4:Address[] {
     r4:Address[] address = [{district: pid12}];
 
     foreach hl7v23:XAD item in pid11 {
@@ -98,7 +98,7 @@ public function GetHL7_PID_Address(string pid12, hl7v23:XAD[] pid11) returns r4:
 # + pid13 - Phone Number - Home (in hl7:PID)
 # + pid14 - Phone Number - Business (in hl7:PID)
 # + return - telecom (in r4:Patient)
-public function GetHL7_PID_PhoneNumber(hl7v23:XTN[] pid13, hl7v23:XTN[] pid14) returns r4:ContactPoint[] {
+public function GetHL7v23_PID_PhoneNumber(hl7v23:XTN[] pid13, hl7v23:XTN[] pid14) returns r4:ContactPoint[] {
     r4:ContactPoint[] phoneNumbers = [];
 
     //get ContactPointFromXTN use this
@@ -138,7 +138,7 @@ public function GetHL7_PID_PhoneNumber(hl7v23:XTN[] pid13, hl7v23:XTN[] pid14) r
 #
 # + pid15 - Primary Language (in hl7:PID)
 # + return - communication (in r4:Patient)
-public function GetHL7_PID_PrimaryLanguage(hl7v23:CE pid15) returns r4:PatientCommunication[] {
+public function GetHL7v23_PID_PrimaryLanguage(hl7v23:CE pid15) returns r4:PatientCommunication[] {
     r4:CodeableConcept language = {
         id: pid15.ce1,
         // extension:
@@ -159,13 +159,13 @@ public function GetHL7_PID_PrimaryLanguage(hl7v23:CE pid15) returns r4:PatientCo
 #
 # + pid16 - Marital Status (in hl7:PID) 
 # + return - maritalStatus (in r4:Patient)
-public function GetHL7_PID_MaritalStatus(string pid16) returns r4:Coding[] {
+public function GetHL7v23_PID_MaritalStatus(string pid16) returns r4:Coding[] {
     r4:Coding[] maritialStatues = [{code: pid16}];
 
     return maritialStatues;
 }
 
-// public function GetHL7_PID_Religion(string pid17) returns r4:Extension[]{
+// public function GetHL7v23_PID_Religion(string pid17) returns r4:Extension[]{
 //     r4:Extension[] extensions = [{url: pid16}];
 
 //     return  extensions;
@@ -175,7 +175,7 @@ public function GetHL7_PID_MaritalStatus(string pid16) returns r4:Coding[] {
 #
 # + pid19 - SSN Number - Patient (in hl7:PID)
 # + return - identifier (in r4:Patient)
-public function GetHL7_PID_SSNNumberPatient(string pid19) returns r4:Identifier[] {
+public function GetHL7v23_PID_SSNNumberPatient(string pid19) returns r4:Identifier[] {
     r4:Identifier[] identifier = [{value: pid19}];
 
     return identifier;
@@ -185,7 +185,7 @@ public function GetHL7_PID_SSNNumberPatient(string pid19) returns r4:Identifier[
 #
 # + pid23 - Birth Place (in hl7:PID)
 # + return - extension (in r4:Patient)
-public function GetHL7_PID_BirthPlace(string pid23) returns r4:Extension[] {
+public function GetHL7v23_PID_BirthPlace(string pid23) returns r4:Extension[] {
     r4:StringExtension[] extension = [{url: pid23, valueString: pid23}];
 
     return extension;
@@ -195,7 +195,7 @@ public function GetHL7_PID_BirthPlace(string pid23) returns r4:Extension[] {
 #
 # + pid24 - Multiple Birth Indicator (in hl7:PID)
 # + return - multipleBirthBoolean (in r4:Patient)
-public function GetHL7_PID_MultipleBirthIndicator(string pid24) returns boolean {
+public function GetHL7v23_PID_MultipleBirthIndicator(string pid24) returns boolean {
     match pid24 {
         "N" => {
             return false;
@@ -213,7 +213,7 @@ public function GetHL7_PID_MultipleBirthIndicator(string pid24) returns boolean 
 #
 # + pid25 - Birth Order (in hl7:PID)
 # + return - multipleBirthInteger (in r4:Patient)
-public function GetHL7_PID_BirthOrder(float pid25) returns int {
+public function GetHL7v23_PID_BirthOrder(float pid25) returns int {
     return <int>pid25;
 }
 
@@ -221,7 +221,7 @@ public function GetHL7_PID_BirthOrder(float pid25) returns int {
 #
 # + pid30 - Patient Death Indicator (in hl7:PID)
 # + return - deceasedBoolean (in r4:Patient)
-public function GetHL7_PID_PatientDeathIndicator(string pid30) returns boolean {
+public function GetHL7v23_PID_PatientDeathIndicator(string pid30) returns boolean {
     match pid30 {
         "false" => {
             return false;

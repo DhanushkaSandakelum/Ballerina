@@ -17,3 +17,9 @@ org = "wso2healthcare"
 name = "healthcare.hl7v23"
 version = "0.1.9"
 repository="local"
+
+[[dependency]]
+org = "wso2healthcare"
+name = "healthcare.hl7v24"
+version = "0.1.9"
+repository="local"
