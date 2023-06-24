@@ -1,5 +1,3 @@
-import wso2healthcare/healthcare.fhir.r4;
-
 type inputRecord record {
     record {
         int id;
